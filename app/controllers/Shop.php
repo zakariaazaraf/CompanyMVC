@@ -1,14 +1,18 @@
 <?php
 
-    class Shop{
+    class Shop extends Controller{
 
         public function __construct(){
-            echo 'Shop Construct';
+            
         }
 
-        public function man(){
+        public function man(...$args){
             echo 'Man From Controller Method';
+            echo '<pre>';
+            print_r($args);
+            echo '</pre>';
+            $this->view('man');
         }
 
-        public $man = 'man para from the shop' ;
+        
     }

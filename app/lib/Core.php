@@ -1,7 +1,7 @@
 <?php
 
     class Core{
-        protected $currentController = 'Page';
+        protected $currentController = 'Pages';
         protected $currentMethod = 'index';
         protected $params = [];
 
@@ -31,7 +31,12 @@
             }
 
             // GET THE PARAMS 
-            $this->params = $url && array_values($url);
+            $this->params = $url ? array_values($url) : [];
+
+
+            // CALLBACK FUNCTION, BECAUSE THE METHOD NOT KNOWN BEFOREHAND
+            call_user_func_array([$this->currentController, $this->currentMethod], $this->params);
+            
         }
 
         public function getUrl(){
