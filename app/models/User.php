@@ -7,7 +7,7 @@
             $this->db = new Database();
         }
 
-        public function getUsers(){
+        public function getAllUsers(){
             $this->db->query("SELECT * FROM users");
             $users = $this->db->resultSet();
             return $users;
