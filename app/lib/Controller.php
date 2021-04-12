@@ -2,6 +2,7 @@
 
     // LOAD THE MODEL AND THE VIEW
     class Controller{
+        
         public function model($model){
             // REQUIRE MODEL
             require_once '../app/models/' . $model . '.php';

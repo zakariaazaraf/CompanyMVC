@@ -4,7 +4,7 @@
     define('DB_HOST', 'localhost');
     define('DB_USER', 'root');
     define('DB_PASS', '');
-    define('DB_NAME', 'zakaria');
+    define('DB_NAME', 'mvc_posts');
 
     // APPLICATION ROOT
     define('APPROOT', dirname(dirname(__FILE__)));
