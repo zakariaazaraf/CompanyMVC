@@ -8,6 +8,7 @@
 </head>
 <body>
     <h1>User View</h1>
+    <h3>
     <?php
 
         foreach($data['users'] as $user){
@@ -23,5 +24,6 @@
         }
     
     ?>
+    </h3>
 </body>
 </html>

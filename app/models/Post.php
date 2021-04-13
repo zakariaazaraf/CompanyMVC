@@ -12,4 +12,11 @@
             $posts = $this->db->resultSet();
             return $posts;
         }
+
+        public function getPost(){
+            $this->db->query('SELECT * FROM posts WHERE id = ?');
+            //$this->db->query('id', $id, INT);
+            $post = $this->db->single();
+            return $post;
+        }
     }
