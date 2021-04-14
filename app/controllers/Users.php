@@ -13,4 +13,14 @@
             ];
             $this->view('users/user', $data);
         }
+
+        public function login(){
+            // Fetch Needed Data
+
+            $this->view('users/login');
+        }
+
+        public function register(){
+            $this->view(('users/register'));
+        }
     }

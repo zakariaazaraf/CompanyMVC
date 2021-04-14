@@ -1,3 +1,6 @@
+    <?php require APPROOT . '/views/includes/head.php'; ?>
+    <?php require APPROOT . '/views/includes/navigation.php'; ?>
+    
 <div class="form-container">
     <form action="" method='POST'>
         <div class="input-group">

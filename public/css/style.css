@@ -5,7 +5,53 @@
 }
 
 body {
-  background-color: #ddd;
-  color: #000;
+  height: 100vh;
+  width: 100vw;
+  color: #fff;
   font-size: 1.2rem;
+}
+
+.landng-section {
+  height: 100%;
+  background: url("../images/alley-89197_960_720.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  display: flex;
+  flex-direction: column;
+}
+
+.landng-section .wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
+.top-nav {
+  text-align: end;
+  padding: 1rem;
+}
+
+.top-nav ul {
+  display: flex;
+  justify-content: end;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.top-nav ul li {
+  margin: 0.7rem 0.8rem;
+}
+
+.top-nav ul li a {
+  text-decoration: none;
+  color: #fff;
+}
+
+.top-nav ul li a:hover {
+  transition: color 0.2s ease-in;
+  color: #8d8d8d;
 }
