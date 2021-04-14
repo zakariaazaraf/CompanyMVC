@@ -16,11 +16,29 @@
 
         public function login(){
             // Fetch Needed Data
-
-            $this->view('users/login');
+            $data = [
+                'title' => 'login page',
+                'emailError' => '',
+                'passwordError' => ''
+            ];
+            $this->view('users/login', $data);
         }
 
         public function register(){
-            $this->view(('users/register'));
+            $data = [
+                'title' => 'register page',
+                'firstname' => '',
+                'lastname' => '',
+                'email' => '',
+                'password' => '',
+                'confirmPassword' => '',
+                'firstnameError' => '',
+                'lastnameError' => '',
+                'emailError' => '',
+                'passwordError' => '',
+                'confirmPasswordError' => ''
+
+            ];
+            $this->view('users/register', $data);
         }
     }

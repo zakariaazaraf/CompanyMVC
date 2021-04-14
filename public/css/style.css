@@ -7,8 +7,6 @@
 body {
   height: 100vh;
   width: 100vw;
-  color: #fff;
-  font-size: 1.2rem;
 }
 
 .landng-section {
@@ -31,7 +29,9 @@ body {
 
 .top-nav {
   text-align: end;
-  padding: 1rem;
+  padding: 1rem 1.5rem;
+  background-color: black;
+  font-size: 1.2rem;
 }
 
 .top-nav ul {
@@ -49,9 +49,79 @@ body {
 .top-nav ul li a {
   text-decoration: none;
   color: #fff;
+  text-transform: capitalize;
 }
 
 .top-nav ul li a:hover {
   transition: color 0.2s ease-in;
   color: #8d8d8d;
+}
+
+.top-nav ul li a.login {
+  border: 1px solid #fff;
+  padding: 5px 15px;
+}
+
+/* Style Form Login/Register */
+.form-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 5rem 0;
+  font-size: 1.2rem;
+}
+
+.form-container form h2 {
+  font-size: 2.2rem;
+  text-align: center;
+  text-transform: uppercase;
+  margin: 0.7rem 0;
+  letter-spacing: 2px;
+}
+
+.form-container form {
+  display: flex;
+  flex-direction: column;
+  width: 340px;
+}
+
+.form-container form .input-group *,
+.form-container .options,
+.form-container .submit {
+  margin: 0.4rem 0;
+}
+
+.form-container input,
+.form-container .submit {
+  height: 32px;
+  border: 1px solid #ddd;
+  padding: 7px;
+}
+
+.form-container .submit {
+  cursor: pointer;
+  color: #fff;
+  background-color: black;
+  font-size: 1.1rem;
+  padding: 8px 0;
+  height: auto;
+}
+
+.form-container .input-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-container label,
+button.submit,
+.form-container h2 {
+  text-transform: capitalize;
+}
+
+.form-container .options a {
+  cursor: pointer;
+  text-decoration: none;
+}
+.form-container .options a:hover {
+  text-decoration: underline;
 }
