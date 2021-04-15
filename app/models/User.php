@@ -33,4 +33,25 @@
             return false;
             
         }
+
+        public function emailExists($email){
+            $this->db->query('SELECT * FROM users WHERE email = :email');
+            $this->db->bind(':email', $email);
+            $this->db->execute();
+            return $this->db->rowCount() ? true : false;
+        }
+
+        public function login($email, $password){
+            $this->db->query('SELECT * FROM users WHERE email = :email');
+            $this->db->bind(':email', $email);
+            $user = $this->db->single();
+            
+            $hashedPassord = $user->password;
+
+            if(password_verify($password, $hashedPassord)){
+                return $user;
+            }else{
+                return false;
+            }
+        }
     }

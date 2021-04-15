@@ -18,9 +18,62 @@
             // Fetch Needed Data
             $data = [
                 'title' => 'login page',
+                'email' => '',
+                'passowrd' => '',
                 'emailError' => '',
                 'passwordError' => ''
             ];
+
+            // CHECK THE REQUEST METHOD 
+            if($_SERVER['REQUEST_METHOD'] == 'POST'){
+
+                // Sanitize Post Data
+                $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+
+                $data['email'] = trim($_POST['email']);
+                $data['password'] = trim($_POST['password']);
+        
+                // Start Validate Form Fields
+
+                // Email Filed Validation
+                if(empty($data['email'])){
+                    $data['emailError'] = 'Please Enter The Email.';
+                }elseif(!filter_var($data['email'], FILTER_VALIDATE_EMAIL)){
+                    $data['emailError'] = 'Please Enter Valide Format';
+                }
+
+                // Email Filed Validation
+                if(empty($data['password'])){
+                    $data['passwordError'] = 'Please Enter The Password.';
+                }
+
+                $isValidEmail = empty($data['emailError']) ? true : false ;
+                $isValidPassword = empty($data['passwordError']) ? true : false ;
+
+                if($isValidEmail && $isValidPassword){
+
+                    $loggedInUser = $this->userModel->login($data['email'], $data['password']);
+                    if($loggedInUser){
+                        $this->createUserSession($loggedInUser);
+                        $this->view('posts/index');
+                        return;
+                    }else{
+                        $data['emailError'] = 'Email Or Password Uncorrect.';
+                        $data['passwordError'] = 'Email Or Password Uncorrect.';
+                        $this->view('users/login', $data);
+                        
+                    }
+                }
+
+            }else{
+                 $data = [
+                    'email' => '',
+                    'passowrd' => '',
+                    'emailError' => '',
+                    'passwordError' => ''
+                ];
+            }
+
             $this->view('users/login', $data);
         }
 
@@ -50,6 +103,7 @@
                 $data['lastname'] = trim($_POST['lastname']);
                 $data['email'] = trim($_POST['email']);
                 $data['password'] = trim($_POST['password']);
+                $data['confirmPassword'] = trim($_POST['confirmPassword']);
 
                 // VALIDATE FORM FIELDS 
                 $nameValidate = "/^[a-zA-Z0-9]*$/";
@@ -75,6 +129,10 @@
                     $data['emailError'] = 'Please enter an email.';
                 }elseif(!filter_var($data['email'], FILTER_VALIDATE_EMAIL)){
                     $data['emailError'] = 'Please Enter The correct format.';
+                }else{
+                    if($this->userModel->emailExists($data['email'])){
+                        $data['emailError'] = 'Email Already Exists, Try onther One.';
+                    }
                 }
 
                 // Validate password
@@ -92,7 +150,17 @@
                     $data['confirmPasswordError'] = 'Please Enter Identical Password';
                 }
 
-                if(empty($data['firstnameError']) && empty($data['lastnameError']) && empty($data['emailError']) && empty($data['passwordError']) && $data['confirmPasswordError']){
+                $isValidFirstname = empty($data['firstnameError']) ? true : false;
+                $isValidLastname = empty($data['lastnameError']) ? true : false;
+                $isValidEmail = empty($data['emailError']) ? true : false;
+                $isValidPassword = empty($data['passwordError']) ? true : false;
+                $isValidConfirmPassword = empty($data['confirmPasswordError']) ? true : false;
+
+                if($isValidFirstname && $isValidLastname && $isValidEmail && $isValidPassword && $isValidConfirmPassword){
+
+                    // HASH THE PASSWORD
+                    $data['password'] = password_hash($data['password'], PASSWORD_DEFAULT);
+
                     if($this->userModel->register($data)){
                         header('location:' . URLROOT . '/users/login');
                     }else{
@@ -102,5 +170,17 @@
             }
 
             $this->view('users/register', $data);
+        }
+
+        public function createUserSession($user){
+            $_SESSION['user_id'] = $user->id;
+            $_SESSION['user_email'] = $user->email;
+        }
+
+        public function logout(){
+            unset($_SESSION['user_id']);
+            unset($_SESSION['email']);
+            header('location:' . URLROOT . '/users/login');
+            
         }
     }
