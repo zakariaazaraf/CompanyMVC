@@ -4,11 +4,6 @@
   box-sizing: border-box;
 }
 
-body {
-  height: 100vh;
-  width: 100vw;
-}
-
 .landng-section {
   height: 100%;
   background: url("../images/alley-89197_960_720.jpg");
@@ -71,6 +66,11 @@ body {
   font-size: 1.2rem;
 }
 
+.form-container form .invalidFeedback {
+  color: red;
+  font-style: italic;
+}
+
 .form-container form h2 {
   font-size: 2.2rem;
   text-align: center;
@@ -82,13 +82,13 @@ body {
 .form-container form {
   display: flex;
   flex-direction: column;
-  width: 340px;
+  width: 320px;
 }
 
 .form-container form .input-group *,
 .form-container .options,
 .form-container .submit {
-  margin: 0.4rem 0;
+  margin: 0.25rem 0;
 }
 
 .form-container input,
