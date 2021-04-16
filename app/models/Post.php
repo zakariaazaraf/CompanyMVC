@@ -21,10 +21,28 @@
         }
 
         public function addPost($data){
-            $this->db->query('INSERT INTO posts (title, description) VALUES (:title, :description)');
+            $this->db->query('INSERT INTO posts (title, description, user_id) VALUES (:title, :description, :user_id)');
             $this->db->bind(':title', $data['title']);
             $this->db->bind(':description', $data['content']);
+            // GET THE USER ID FROM THE SESSION
+            $this->db->bind(':user_id', $_SESSION['user_id']); 
 
             return $this->db->execute() ? true : false;
+        }
+
+        public function updatePost($data){
+            $this->db->query('UPDATE posts SET title = :title, description = :description WHERE id = :post_id');
+            $this->db->bind(':title', $data['title']);
+            $this->db->bind(':description', $data['content']);
+            $this->db->bind(':post_id', $data['post_id']);
+
+            return $this->db->execute() ? true : false ;
+        }
+
+        public function deletePost($id){
+            $this->db->query('DELETE FROM posts WHERE id = :post_id');
+            $this->db->bind(':post_id', $id);
+
+            return $this->db->execute() ? true : false ;
         }
     }

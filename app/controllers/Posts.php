@@ -53,7 +53,7 @@
 
                 if($isValidTitle && $isValidContent){
                     if($this->postModel->addPost($data)){
-                        header('location:' . URLROOT . 'posts/index');
+                        header('location:' . URLROOT . '/posts/index');
                         return;
                     }else{
                         die('Something Went Wrrong Try Again ...');
