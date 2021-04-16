@@ -10,8 +10,10 @@
         }
 
         public function index(...$args){
-            $users = $this->userModel->getUsers();
-
-            $this->view('users/user', $users);
+            /* $users = $this->userModel->getAllUsers();
+            $data = [
+                'users' => $users
+            ]; */
+            $this->view('pages/index');
         }
     }

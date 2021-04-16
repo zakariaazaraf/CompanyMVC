@@ -15,7 +15,7 @@
         }
 
         public function login(){
-            // Fetch Needed Data
+            
             $data = [
                 'title' => 'login page',
                 'email' => '',
@@ -55,24 +55,26 @@
                     $loggedInUser = $this->userModel->login($data['email'], $data['password']);
                     if($loggedInUser){
                         $this->createUserSession($loggedInUser);
-                        $this->view('posts/index');
-                        return;
-                    }else{
-                        $data['emailError'] = 'Email Or Password Uncorrect.';
-                        $data['passwordError'] = 'Email Or Password Uncorrect.';
-                        $this->view('users/login', $data);
-                        
+                        //$this->view('posts/index');
+                        header('location:' . URLROOT . '/posts/index');
+                        return ;
                     }
+                    
+                    $data['emailError'] = 'Email Or Password Uncorrect.';
+                    $data['passwordError'] = 'Email Or Password Uncorrect.';
+                    $this->view('users/login', $data);
+                        
+                    
                 }
 
-            }else{
+            }/* else{
                  $data = [
                     'email' => '',
                     'passowrd' => '',
                     'emailError' => '',
                     'passwordError' => ''
                 ];
-            }
+            } */
 
             $this->view('users/login', $data);
         }

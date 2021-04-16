@@ -4,6 +4,7 @@
 
         public function __construct(){
             $this->postModel = $this->model('Post');
+            $this->userModel = $this->model('User');
         }
 
         public function index(){
@@ -15,7 +16,52 @@
         }
 
         public function create(){
-            $this->view('posts/create');
+
+            
+            // CHECK THE THE USER AUTHONTICATION
+            if(!isLogedin()){
+                header('location:' . URLROOT . 'posts/index');
+                return;
+            }
+
+            $data = [
+                'title' => '',
+                'user_id' => $_SESSION['user_id'],
+                'content' => '',
+                'titleError' => '',
+                'userError' => '',
+                'contentError' => ''
+            ];
+
+            // IF THE USER SEND PODT DATA
+            if($_SERVER['REQUEST_METHOD'] == 'POST'){
+                $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+
+                $data['title'] = trim($_POST['title']);
+                $data['content'] = trim($_POST['content']);
+
+                if(empty($data['title'])){
+                    $data['titleError'] = 'Plase Enter The Post Title.';
+                }
+
+                if(empty($data['content'])){
+                    $data['contentError'] = 'Please Fill The Post\'s Content.';
+                }
+
+                $isValidTitle = empty($data['titleError']) ? true : false;
+                $isValidContent = empty($data['contentError']) ? true : false;
+
+                if($isValidTitle && $isValidContent){
+                    if($this->postModel->addPost($data)){
+                        header('location:' . URLROOT . 'posts/index');
+                        return;
+                    }else{
+                        die('Something Went Wrrong Try Again ...');
+                    }       
+                }
+            }
+
+            $this->view('posts/create', $data);
         }
 
         public function update(){

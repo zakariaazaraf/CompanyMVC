@@ -4,8 +4,27 @@
   box-sizing: border-box;
 }
 
+.btn {
+  text-decoration: none;
+  text-transform: uppercase;
+  cursor: pointer;
+  padding: 0.5rem 0.9rem;
+  font-size: 1.2rem;
+  letter-spacing: 1.2px;
+}
+
+.green {
+  color: #fff;
+  background-color: #4caf55;
+}
+
+.green:hover {
+  transition: all 0.2s ease-in;
+  background-color: #64a644;
+}
+
 .landng-section {
-  height: 100%;
+  min-height: 100vh;
   background: url("../images/alley-89197_960_720.jpg");
   background-size: cover;
   background-repeat: no-repeat;
@@ -20,6 +39,8 @@
   align-items: center;
   flex-direction: column;
   flex-grow: 1;
+  color: #fff;
+  font-size: 2rem;
 }
 
 .top-nav {
@@ -92,7 +113,8 @@
 }
 
 .form-container input,
-.form-container .submit {
+.form-container .submit,
+.form-container select {
   height: 32px;
   border: 1px solid #ddd;
   padding: 7px;
@@ -124,4 +146,55 @@ button.submit,
 }
 .form-container .options a:hover {
   text-decoration: underline;
+}
+
+/* POSTS Style */
+.posts-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+.posts-container .wrapper {
+  background-color: #f2f2f2;
+  padding: 4rem 8rem;
+  flex-grow: 1;
+}
+
+.posts-container .wrapper .post {
+  padding: 1.5rem 0;
+}
+
+.posts-container .wrapper .post > * {
+  padding: 0.6rem 0;
+}
+
+.posts-container .wrapper .post:not(:last-child) {
+  border-bottom: 1px solid #b4b4b4;
+}
+
+.posts-container .wrapper h2.post-title {
+  font-size: 3rem;
+}
+
+.posts-container .wrapper p.post-date {
+  font-size: 1.2rem;
+  font-style: italic;
+  color: #828282;
+}
+
+.posts-container .wrapper .post-desc {
+  font-size: 1.4rem;
+}
+
+/* CREATE POST */
+.post-form {
+  justify-content: flex-start;
+  align-items: flex-start;
+  flex-direction: column;
+  padding: 2.5rem 6rem;
+}
+
+.post-form textarea {
+  width: 550px;
+  padding: 0.5rem 0.7rem;
 }
