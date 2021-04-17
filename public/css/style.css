@@ -29,8 +29,24 @@
   margin: 0.5rem 0;
 }
 
-.orange-btn {
-  text-align: end;
+.red {
+  color: #fff;
+  background-color: red;
+  margin: 0.5rem 0;
+  border: none;
+}
+
+.btn:hover {
+  opacity: 0.85;
+}
+
+.post-buttons {
+  display: flex;
+  justify-content: end;
+}
+
+.post-buttons form {
+  margin: 0 0.4rem;
 }
 
 .landng-section {

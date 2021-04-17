@@ -133,7 +133,27 @@
             $this->view('posts/update', $data);
         }
 
-        public function delete(){
-            $this->view('posts/delete');
+        public function delete($id){
+            $post = $this->postModel->getpostById($id);
+
+            // CHECK THE ACCESSIBLITY FOR THIS FUNCTIONALITY
+            if(!isLogedIn()){
+                header('location:' . URLROOT . '/posts');
+                return;
+            }
+            if($post->user_id != $_SESSION['user_id']){
+                header('location:' . URLROOT . '/posts');
+                return;
+            }
+
+            if($_SERVER['REQUEST_METHOD'] == 'POST'){
+                if($this->postModel->deletePost($id)){
+                    header('location:' . URLROOT . '/posts');
+                    return;
+                }
+                die('Something Went Wrrong ...');
+                return;
+            }
+            $this->view('posts');
         }
     }
