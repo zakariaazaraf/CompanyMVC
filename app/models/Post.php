@@ -1,6 +1,7 @@
 <?php
 
     class Post {
+
         private $db;
 
         public function __construct(){
@@ -22,10 +23,11 @@
 
         public function addPost($data){
             $this->db->query('INSERT INTO posts (title, description, user_id) VALUES (:title, :description, :user_id)');
+
+            // BIND THE DATA
             $this->db->bind(':title', $data['title']);
             $this->db->bind(':description', $data['content']);
-            // GET THE USER ID FROM THE SESSION
-            $this->db->bind(':user_id', $_SESSION['user_id']); 
+            $this->db->bind(':user_id', $data['user_id']); 
 
             return $this->db->execute() ? true : false;
         }
@@ -45,4 +47,11 @@
 
             return $this->db->execute() ? true : false ;
         }
+
+        public function getPostById($id){
+            $this->db->query('SELECT * FROM posts WHERE id = :id');
+            $this->db->bind(':id', $id);
+            return $this->db->single();
+        }
+
     }

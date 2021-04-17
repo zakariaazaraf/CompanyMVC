@@ -64,9 +64,73 @@
             $this->view('posts/create', $data);
         }
 
-        public function update(){
-            $post = $this->postModel->single();
-            $this->view('posts/update');
+        public function update($id){
+            $post = $this->postModel->getPostById($id) ;
+
+            // CHECK IF THE UPDATER USER HAVE THE ACCESS TO THIS FUNCTIONALITY
+            if(!islogedIn()){
+                header('location:' . URLROOT . '/posts/index');
+                return;
+            }
+            if($post->user_id != $_SESSION['user_id']){
+                header('location:' . URLROOT . '/posts/index');
+                return;
+            }
+
+            $data = [
+                'post' => $post,
+                'title' => '',
+                'content' => '',
+                'titleError' => '',
+                'contentError' => '',
+                'post_id' => $post->id
+            ];
+
+            // CHECK IF THE REQUEST METHOD IS POST
+            if($_SERVER['REQUEST_METHOD'] == 'POST'){
+                $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+
+                $data['title'] = $_POST['title'];
+                $data['content'] = $_POST['content'];
+
+                if(empty($data['title'])){
+                    $data['titleError'] = 'Please Fill Post\'s Title.';
+                }
+
+                if(empty($data['content'])){
+                    $data['contentError'] = 'Please Fill Post\'s Content.';
+                }
+
+                /****************************************************************************/
+                /***** YOU COULD CHECK IF THE DATA AFTER UPDATE IS THE SEEM AS BEFORE *******/
+                /*********** SO YOU AVOID UNNECESSARY REQUEST TO THE DATABASE  ***************/
+                /****************************************************************************/
+
+                $titleUpdated = $data['title'] == $this->postModel->getPostById($id)->title ? true : false ;
+                $contentUpdated = $data['content'] == $this->postModel->getPostById($id)->description ? true : false;
+
+                if($titleUpdated && $contentUpdated){
+                    
+                    $data['titleError'] = 'You Haven\'t Updated The Title Neither Content';
+            
+                    $data['contentError'] = 'You Haven\'t Updated The Content Neither Title';
+                    
+                }
+              
+
+
+                $isValidTitle = empty($data['titleError']) ? true : false;
+                $isValidContent = empty($data['contentError']) ? true : false;
+
+                if($isValidTitle && $isValidContent){
+                    if($this->postModel->updatePost($data)){
+                        header('location:' . URLROOT . '/posts/index');
+                        return;
+                    }
+                    die('Something Went Wrong ...');
+                }
+            }
+            $this->view('posts/update', $data);
         }
 
         public function delete(){

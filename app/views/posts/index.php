@@ -8,6 +8,7 @@
             <?php if(isLogedin()):?>
                 <a class='btn green' href="<?php echo URLROOT ; ?>/posts/create">create</a>
             <?php endif;?>
+            
             <?php foreach($data['posts'] as $post):?>
                 <div class="post">
                     <h2 class='post-title'>
@@ -19,6 +20,11 @@
                     <p class='post-desc'>
                         <?php echo $post->description?>
                     </p>
+                    <div class='orange-btn'>
+                        <?php if(isset($_SESSION['user_id']) && $_SESSION['user_id'] == $post->user_id):?>
+                            <a class='btn orange' href="<?php echo URLROOT . "/posts/update/" . $post->id; ?>">update</a>
+                        <?php endif; ?>
+                    </div>
                 </div>
             <?php endforeach ;?>
             
